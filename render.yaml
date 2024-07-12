@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: hirebotics-backend
+    env: python
+    plan: free
+    buildCommand: "./venv/Scripts/pip install -r requirements.txt && python manage.py collectstatic --no-input"
+    startCommand: "gunicorn hirebotics.wsgi --log-file -"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: hirebotics.settings
+      - key: SECRET_KEY
+        sync: false
+
+  - type: static
+    name: hirebotics-frontend
+    env: static
+    plan: free
+    buildCommand: "npm install && npm run build"
+    staticPublishPath: frontend/build
