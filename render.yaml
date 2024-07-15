@@ -10,10 +10,9 @@ services:
         value: hirebotics.settings
       - key: SECRET_KEY
         sync: false
-
-  - type: static
+  - type: web
     name: hirebotics-frontend
     env: static
     plan: free
-    buildCommand: "npm install && npm run build"
     staticPublishPath: frontend/build
+    buildCommand: "cd frontend && npm install && npm run build"
